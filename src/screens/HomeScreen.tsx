@@ -3,6 +3,7 @@ import { ActivityIndicator, FlatList, Image, Text } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { globalStyles } from '../theme/appTheme'
 import { usePokemonPaginated } from '../hooks/usePokemonPaginated'
+import FadeInImage from '../components/FadeInImage'
 
 const HomeScreen = () => {
   const { top } = useSafeAreaInsets()
@@ -23,10 +24,7 @@ const HomeScreen = () => {
         onEndReached={loadPokemons}
         onEndReachedThreshold={0.4}
         renderItem={({ item: { picture }, index }) => (
-          <Image
-            source={{ uri: picture }}
-            style={{ height: 100, width: 100 }}
-          />
+          <FadeInImage uri={picture} style={{ height: 100, width: 100 }} />
         )}
         showsVerticalScrollIndicator={false}
       />
