@@ -46,6 +46,7 @@ export const usePokemonPaginated = () => {
 
   return {
     isLoading,
+    loadPokemons,
     simplePokemonList
   }
 }
