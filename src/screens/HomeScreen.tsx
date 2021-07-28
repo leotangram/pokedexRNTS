@@ -1,9 +1,9 @@
 import React from 'react'
-import { ActivityIndicator, FlatList, Image, Text } from 'react-native'
+import { ActivityIndicator, FlatList, Image, Text, View } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { globalStyles } from '../theme/appTheme'
 import { usePokemonPaginated } from '../hooks/usePokemonPaginated'
-import FadeInImage from '../components/FadeInImage'
+import PokemonCard from '../components/PokemonCard'
 
 const HomeScreen = () => {
   const { top } = useSafeAreaInsets()
@@ -15,28 +15,33 @@ const HomeScreen = () => {
         source={require('../assets/pokebola.png')}
         style={globalStyles.pokeballBG}
       />
-      <FlatList
-        data={simplePokemonList}
-        keyExtractor={pokemon => pokemon.id}
-        ListFooterComponent={
-          <ActivityIndicator color="grey" size={20} style={{ height: 100 }} />
-        }
-        onEndReached={loadPokemons}
-        onEndReachedThreshold={0.4}
-        renderItem={({ item: { picture }, index }) => (
-          <FadeInImage uri={picture} style={{ height: 100, width: 100 }} />
-        )}
-        showsVerticalScrollIndicator={false}
-      />
-      {/* <Text
-        style={{
-          ...globalStyles.globalMargin,
-          ...globalStyles.title,
-          top: top + 20
-        }}
-      >
-        Pokedex
-      </Text> */}
+      <View style={{ ...globalStyles.globalMargin, alignItems: 'center' }}>
+        <FlatList
+          data={simplePokemonList}
+          keyExtractor={pokemon => pokemon.id}
+          ListFooterComponent={
+            <ActivityIndicator color="grey" size={20} style={{ height: 100 }} />
+          }
+          ListHeaderComponent={
+            <Text
+              style={{
+                ...globalStyles.globalMargin,
+                ...globalStyles.title,
+                marginBottom: top + 20,
+                paddingBottom: 10,
+                top: top + 20
+              }}
+            >
+              Pokedex
+            </Text>
+          }
+          numColumns={2}
+          onEndReached={loadPokemons}
+          onEndReachedThreshold={0.4}
+          renderItem={({ item, index }) => <PokemonCard {...item} />}
+          showsVerticalScrollIndicator={false}
+        />
+      </View>
     </>
   )
 }
