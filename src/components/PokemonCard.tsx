@@ -1,4 +1,5 @@
 import React, { FC } from 'react'
+import { useRef } from 'react'
 import { useEffect } from 'react'
 import { useState } from 'react'
 import {
@@ -16,16 +17,22 @@ import FadeInImage from './FadeInImage'
 const windowWidth = Dimensions.get('window').width
 
 const PokemonCard: FC<SimplePokemon> = ({ id, name, picture }) => {
+  const isMounted = useRef(true)
+
   const [bgColor, setBgColor] = useState('grey')
 
   useEffect(() => {
     ImageColors.getColors(picture, {
       fallback: 'grey'
     }).then(colors => {
+      if (!isMounted.current) return
       colors.platform === 'android'
         ? setBgColor(colors.dominant || 'grey')
         : setBgColor(colors.background || 'grey')
     })
+    return () => {
+      isMounted.current = false
+    }
   }, [])
 
   return (
