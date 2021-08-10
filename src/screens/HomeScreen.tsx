@@ -38,7 +38,7 @@ const HomeScreen = () => {
           numColumns={2}
           onEndReached={loadPokemons}
           onEndReachedThreshold={0.4}
-          renderItem={({ item, index }) => <PokemonCard {...item} />}
+          renderItem={({ item, index }) => <PokemonCard pokemon={item} />}
           showsVerticalScrollIndicator={false}
         />
       </View>
