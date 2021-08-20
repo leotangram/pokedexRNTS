@@ -9,7 +9,7 @@ export const usePokemon = (id: string) => {
 
   const loadPokemon = async () => {
     const response = await pokemonApi.get<PokemonFull>(
-      'https://pokeapi.co/api/v2/pokemon/${id}'
+      `https://pokeapi.co/api/v2/pokemon/${id}`
     )
     setPokemon(response.data)
     setIsLoading(false)
