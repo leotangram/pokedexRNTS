@@ -75,6 +75,34 @@ const PokemonDetails: FC<PokemonDetailsProps> = ({ pokemon }) => {
           ))}
         </View>
       </View>
+      <View style={styles.container}>
+        <Text style={styles.title}>Stats</Text>
+        <View>
+          {pokemon.stats.map(({ base_stat, stat }, index) => (
+            <View key={stat.name + index} style={{ flexDirection: 'row' }}>
+              <Text
+                style={{ ...styles.regularText, marginRight: 10, width: 150 }}
+              >
+                {stat.name}
+              </Text>
+              <Text style={{ ...styles.regularText, fontWeight: 'bold' }}>
+                {base_stat}
+              </Text>
+            </View>
+          ))}
+        </View>
+        <View
+          style={{
+            alignItems: 'center',
+            marginBottom: 20
+          }}
+        >
+          <FadeInImage
+            style={styles.basicSprite}
+            uri={pokemon.sprites.front_default}
+          />
+        </View>
+      </View>
     </ScrollView>
   )
 }
