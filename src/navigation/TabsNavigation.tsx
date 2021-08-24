@@ -24,7 +24,8 @@ const TabsNavigation = () => {
           elevation: 0,
           height: Platform.OS === 'ios' ? 80 : 60,
           position: 'absolute'
-        }
+        },
+        headerShown: false
       }}
     >
       <Tab.Screen
