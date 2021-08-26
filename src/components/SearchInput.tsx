@@ -1,10 +1,22 @@
 import React from 'react'
-import { Platform, StyleSheet, TextInput, View } from 'react-native'
+import { FC } from 'react'
+import {
+  Platform,
+  StyleProp,
+  StyleSheet,
+  TextInput,
+  View,
+  ViewStyle
+} from 'react-native'
 import Icon from 'react-native-vector-icons/Ionicons'
 
-const SearchInput = () => {
+interface SearchInputProps {
+  style?: StyleProp<ViewStyle>
+}
+
+const SearchInput: FC<SearchInputProps> = ({ style }) => {
   return (
-    <View style={styles.container}>
+    <View style={{ ...styles.container, ...(style as any) }}>
       <View style={styles.textBackground}>
         <TextInput
           autoCapitalize="none"

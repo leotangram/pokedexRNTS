@@ -1,39 +1,35 @@
 import React from 'react'
-import {
-  ActivityIndicator,
-  FlatList,
-  Platform,
-  StyleSheet,
-  Text,
-  View
-} from 'react-native'
+import { Dimensions, FlatList, Platform, Text, View } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import PokemonCard from '../components/PokemonCard'
 import SearchInput from '../components/SearchInput'
 import { usePokemonSearch } from '../hooks/usePokemonSearch'
 import { globalStyles } from '../theme/appTheme'
+import Loading from '../components/Loading'
+
+const screenWidth = Dimensions.get('window').width
 
 const SearchScreen = () => {
   const { top } = useSafeAreaInsets()
   const { isFetching, simplePokemonList } = usePokemonSearch()
 
-  if (isFetching)
-    return (
-      <View style={styles.activityContainer}>
-        <ActivityIndicator color="grey" size={50} />
-        <Text>Loading...</Text>
-      </View>
-    )
+  if (isFetching) return <Loading />
 
   return (
     <View
       style={{
         flex: 1,
-        marginHorizontal: 20,
-        marginTop: Platform.OS === 'ios' ? top : top + 10
+        marginHorizontal: 20
       }}
     >
-      <SearchInput />
+      <SearchInput
+        style={{
+          position: 'absolute',
+          top: Platform.OS === 'ios' ? top : top + 30,
+          width: screenWidth - 40,
+          zIndex: 999
+        }}
+      />
       <FlatList
         data={simplePokemonList}
         keyExtractor={pokemon => pokemon.id}
@@ -42,6 +38,7 @@ const SearchScreen = () => {
             style={{
               ...globalStyles.globalMargin,
               ...globalStyles.title,
+              marginTop: Platform.OS === 'ios' ? top + 60 : top + 80,
               paddingBottom: 10
             }}
           >
@@ -57,11 +54,3 @@ const SearchScreen = () => {
 }
 
 export default SearchScreen
-
-const styles = StyleSheet.create({
-  activityContainer: {
-    alignItems: 'center',
-    flex: 1,
-    justifyContent: 'center'
-  }
-})
